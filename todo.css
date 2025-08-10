@@ -1,0 +1,186 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Geist',sans-serif ;
+}
+:root{
+/* -------Colors----- */
+--body-bg:hsl(0, 0%, 7%);
+--card-bg:hsl(0,0%,70%);
+--bg-opa:10%;
+--card-border:hsl(0,0%,20%);
+--parent-card-radious:24px;
+--border:3px solid;
+--card-padding:20px 20px;
+--child-card-bg:hsl(0, 0%, 25%);
+--child-card--radius:12px;
+--child-card-border:#fff->85%;
+--child-card-gap:20px;
+--primary:#985CE5;
+--primary-hover:#7029CC;
+--child-date-indicator-color:#1BC955,30%;
+--child-date-indicator-border:#59FF90,50%;
+--child-date-font:500,14,#ffff;
+--edit-btn-bg:#3D3DF2;
+--edit-icon-color:#E6E6E6;
+--delete-btn-bg:#B21212
+--delete-icon-color:#E6E6E6;
+/* --------->Sizes */
+--task-title-font:semibold,22px,#fafafa;
+--task-body-font:Medium,18px,#fff,70%,ls-2%;
+--task-full-body-font:regular,18px,#fff,70%;
+--logo-font:bold,29px,white,primarycolor;
+--logo-size-width:153px;
+--logo-size-height:38px;
+--nav-text-font:Medium,25px,#fff,70%;
+--nav-height:75px;
+--nav-width:100%;
+--task-section-w:100%;
+--task-section-h:839;
+--task-section-child-vertical-gap:40px;
+--task-section-child-horizantal-gap:30px;
+--task-section-padding:25px 35px;
+--task-section-child-gap:30px;
+--task-section-child-w:290px;
+--task-section-child-h:160px;
+--body-mt:35px;
+--body-mlr:70px;
+--body-child-gap:90px;
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+main{
+    background-color: var(--body-bg);
+    padding: 35px 70px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 35px;
+    overflow: hidden;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgba(255, 255, 255,0.05);
+    height: 55px;
+    width: 100%;
+    border-radius: var(--parent-card-radious);
+    border: 3px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+}
+.logo>h2>a{
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: .3px;
+    text-decoration: none;
+
+}
+.logo span{
+    color: var(--primary);
+}
+nav>ul{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    list-style-type: none;
+}
+nav ul>li a{
+    text-decoration: none;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: .2px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+nav ul>li a:hover{
+    color: rgba(255,255,255,1);
+}
+nav ul>li .signin{
+    color: rgba(255,255,255,0.8);
+    border-radius: 12px;
+    width: 100px;
+    height: 40;
+    padding: 4px 12px;
+    background-color: var(--primary);
+    transition: all 0.3s ease;
+    cursor:pointer;
+}
+nav ul>li .signin:hover{
+    background-color: var(--primary-hover);
+
+}
+nav #mode-switch{
+    position: absolute;
+    display: none;
+}
+
+.toggle-switch{
+    width:70px;
+    height: 30px;
+    background-color: hsl(0, 0%, 25%);
+    padding:5px 10px;
+    border-radius: 24px;
+    display: inline-flex;
+    align-items: center;
+    color: hsl(0, 0%, 85%);
+    position: relative;
+    border:3px solid rgba(255,255,255,0.2);
+    overflow: hidden;
+    cursor: pointer;
+}
+.toggle-switch>span{
+    transition: all 0.3s ease-in-out;
+    font-size:18px;
+}
+#mode-switch:checked~.toggle-switch{
+    border-color: rgba(255,255,255,0.6);
+}
+#mode-switch:checked~.toggle-switch>span{
+    transform: translateX(30px);
+    /* animation: rotate 2s linear; */
+}
+/* @keyframes rotate{
+    0%,20%,30%,60%,70%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(90deg);
+    }
+} */
+.profile{
+   display: inline-flex;
+   justify-content: center;
+   align-items: center; 
+   border-radius: 50%;
+   background-color: var(--primary);
+   width: 32px;
+   height: 32px;
+   font-size: 1.5rem;
+   user-select: none;
+   cursor: pointer;
+   color: rgba(255,255,255,0.8);
+}
+
+/* ------Task controler------ */
+section{
+    background-color:rgba(255, 255, 255,0.05);
+    height: 80%;
+    width: 100%;
+    border-radius: 24px;
+    padding: 20px;
+    border-radius: var(--parent-card-radious);
+    border: 3px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+    /* margin-top: 35px; */
+
+
+}
