@@ -111,27 +111,32 @@ nav ul>li a {
     letter-spacing: .2px;
     transition: all 0.3s ease;
     cursor: pointer;
-}
+    background: transparent;
 
-nav ul>li a:hover {
-    color: rgba(255, 255, 255, 1);
+    &:hover {
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0px 0px 10px hsl(0, 0%, 90%,0.6)
+
+    }
 }
 
 nav ul>li .signin {
     color: rgba(255, 255, 255, 0.8);
     border-radius: 12px;
+    font-size: .95em;
     width: 100px;
     height: 40;
     padding: 4px 12px;
     background-color: var(--primary);
     transition: all 0.3s ease;
     cursor: pointer;
+
+    &:hover {
+        box-shadow: 0px 2px 10px hsla(260, 100%, 55%, 0.6);
+        background-color: var(--primary-hover);
+    }
 }
 
-nav ul>li .signin:hover {
-    background-color: var(--primary-hover);
-
-}
 
 nav #mode-switch {
     position: absolute;
@@ -151,15 +156,30 @@ nav #mode-switch {
     border: 3px solid rgba(255, 255, 255, 0.2);
     overflow: hidden;
     cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        box-shadow: 0px 0px 10px hsla(0, 0%, 90%, 0.6);
+        border-color: hsl(0, 0%, 90%);
+    }
+}
+
+.toggle-switch:hover span {
+    color: hsl(0, 0%, 90%);
 }
 
 .toggle-switch>span {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease;
     font-size: 18px;
+    color: hsl(0, 0%, 50%);
 }
 
 #mode-switch:checked~.toggle-switch {
-    border-color: rgba(255, 255, 255, 0.6);
+    span {
+        color: hsl(0, 0%, 90%)
+    }
+
+    border-color: hsl(0, 0%, 90%);
 }
 
 #mode-switch:checked~.toggle-switch>span {
@@ -189,16 +209,18 @@ nav #mode-switch {
     color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
     transition: all 0.4s ease;
-    &:hover{
+
+    &:hover {
         background-color: var(--primary-hover);
-        color: rgba(255, 255, 255, 1);
-    
+        color: hsl(0, 0%, 100%);
+        box-shadow: 0px 2px 10px hsla(260, 100%, 55%, 0.6);
+
     }
 
 }
 
 /* ------Task controler------ */
-section,dialog {
+section{
     background-color: rgba(255, 255, 255, 0.05);
     height: fit-content;
     max-height: 600px;
@@ -212,16 +234,19 @@ section,dialog {
     flex-wrap: wrap;
     gap: 20px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    display: none;
+    /* overflow-y: scroll; */
 }
-section::-webkit-scrollbar{
+
+section::-webkit-scrollbar {
     width: 5px;
 
 }
-section::-webkit-scrollbar-thumb{
+
+section::-webkit-scrollbar-thumb {
     overflow: hidden;
     border-radius: 100px;
-    background-color:var(--primary);
+    background-color: var(--primary);
 
 }
 
@@ -247,14 +272,15 @@ section::-webkit-scrollbar-thumb{
     border: 3px solid rgba(255, 255, 255, 1);
 }
 
-.add-task-box:hover .icon-container{
+.add-task-box:hover .icon-container {
     color: hsl(0, 0%, 98%);
     background-color: var(--primary-hover);
 }
 
-.add-task-box:hover label{
+.add-task-box:hover label {
     color: hsl(0, 0%, 98%);
 }
+
 .add-task-box>.icon-container {
     font-size: 1.3rem;
     width: 40px;
@@ -295,9 +321,10 @@ section::-webkit-scrollbar-thumb{
     cursor: pointer;
 
     padding: 10px 8px;
-    &:hover{
+
+    &:hover {
         border-color: rgba(255, 255, 255, 0.8);
-        
+
     }
 }
 
@@ -379,17 +406,152 @@ section::-webkit-scrollbar-thumb{
     margin-top: 2.5px;
     overflow: hidden;
 }
-dialog{
-    color: white;
-    display: inline-block;
-    z-index: 1111;
+
+.content-enter-box {
     position: absolute;
-    transform: translate(-50%,10%);
-    height: 150px;
-    border-color: white;
-    width: 87%;
     top: 50%;
     left: 50%;
-    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    width: 40%;
+    height: 60%;
+    max-height: 300px;
+    border-radius: var(--parent-card-radious);
+    border: 3px solid hsla(0, 0%, 90%, 0.4);
+    background-color: rgba(255, 255, 255, 0.20);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-size: 1rem;
+    overflow: hidden;
     display: none;
+}
+
+.content-enter-box>.title-box,
+.content-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.content-enter-box>.title-box>label,
+.content-box>label {
+    color: hsl(0, 0%, 70%);
+    letter-spacing: 0.04rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+}
+
+.content-enter-box input,
+textarea {
+    border: 3px solid var(--child-card-border);
+    width: 100%;
+    padding: 8px 12px;
+    background-color: hsl(0, 0%, 15%, 0.8);
+    border-radius: 4px;
+    outline: none;
+    color: hsl(0, 0%, 95%);
+    letter-spacing: 0.06rem;
+    font-size: 0.80rem;
+    font-weight: 500;
+}
+
+input::placeholder,
+textarea::placeholder {
+    font-size: 0.75rem !important;
+    color: hsla(0, 0%, 70%, 0.75);
+    font-size: 0.65rem;
+    letter-spacing: 0.03rem;
+}
+.content-enter-box
+input:focus,
+textarea:focus{
+    caret-color: #fff;
+    border: 1px solid hsl(0, 0%, 95%, 0.9);
+}
+
+.content-enter-box textarea {
+    height: 120px;
+    text-decoration: none;
+    max-height: 120px;
+    max-width: 100%;
+    resize: none;
+    overflow-y: scroll;
+}
+
+.content-enter-box textarea::-webkit-scrollbar {
+    width: 5px;
+
+}
+
+.content-enter-box textarea::-webkit-scrollbar-thumb {
+    overflow: hidden;
+    border-radius: 100px;
+    background-color: var(--primary);
+}
+
+.content-enter-box button {
+    display: block;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 8px 12px;
+    background-color: var(--primary);
+    border-radius: 4px;
+    margin-top: 20px;
+    font-size: 14px;
+    letter-spacing: 0.04rem;
+    color: hsl(0, 0%, 80%);
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+        background-color: var(--primary-hover);
+        color: hsl(0, 0%, 100%);
+        box-shadow: 0px 2px 10px hsla(260, 100%, 55%, 0.6);
+    }
+
+}
+
+.content-enter-box .closebtn {
+    position: absolute;
+    right: -5px;
+    color: hsl(0, 0%, 85%);
+    top: -1px;
+    height: 30px;
+    width: 35px;
+    background-color: hsl(0, 0%, 20%);
+    padding: 5px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    transform: rotate(45deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.task-show-box{
+    background-color: rgba(0, 0, 0, 0.05);
+    height: fit-content;
+    max-height: 600px;
+    width: 100%;
+    border-radius: 24px;
+    padding: 20px;
+    border-radius: var(--parent-card-radious);
+    border: 3px solid var(--card-border);
+    position: relative;
+    overflow-x: hidden;
+    color: hsl(0, 0%, 100%);
+}
+.task-show-box>.taskclosebtn{
+    position: absolute;
+    top: -1px;
+    right: 0px;
+    width: fit-content;
+    height: fit-content;
+    padding:6px;
+    display: inline-block;
+
 }

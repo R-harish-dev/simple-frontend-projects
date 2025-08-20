@@ -27,11 +27,12 @@
                     <li><a href="#tutorial">Tutorial</a></li>
                     <li><a href="#feedback">Feedback</a></li>
                     <li><a href="#setting">Settings</a></li>
-                    <li><a class="signin" href="#signin">Sign in</a></li>
+                    <li><a class="signin" href="#signin">SIGN IN</a></li>
                 </ul>
             </nav>
-            <div  class="profile"><span style="font-weight: bold;" class="material-symbols-outlined">add</span></div>
+            <div class="profile"><span style="font-weight: bold;" class="material-symbols-outlined">add</span></div>
         </header>
+        <!-----task container and add task section--- -->
         <section>
             <div id="addtask" class="add-task-box">
                 <div class="icon-container">
@@ -40,11 +41,37 @@
                 <label>Click to add task</label>
             </div>
         </section>
-        <dialog id="showtask">
-            <span>Welcome</span>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. In, fugit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis eligendi veniam corrupti et esse alias, modi accusantium cupiditate libero obcaecati, dignissimos architecto, facilis soluta nobis consequatur repudiandae est? Aut, culpa.</p>
-            <button onclick="closebox()">click</button>
-        </dialog>
+        <!-- ------content add box------ -->
+        <form class="content-enter-box">
+            <label for="closebutton" class="closebtn">
+                <span style="font-size: 18px; transform: rotate(-45deg);" id="closebutton"
+                    class="material-symbols-outlined">close</span>
+            </label>
+            <div class="title-box">
+                <label style="margin-bottom: 4px;" for="title">Title</label>
+                <input type="text" id="title" placeholder="Enter your title" />
+            </div>
+            <div class="content-box" style="margin-top: 10px;">
+                <label style="margin-bottom: 4px;" for="content">Add your context</label>
+                <textarea placeholder="Type message here"></textarea>
+            </div>
+            <button type="submit">ADD DATA</button>
+            </form>
+            <!-- ---content show box---- -->
+             <article class="task-show-box">
+                <label for="" class="taskclosebtn">
+                    <span class="material-symbols-outlined">close</span>
+                </label>
+                <span class="tasktitle">Welcome</span> 
+                <p class="taskbody">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda alias iste est illo culpa esse cum. Ducimus excepturi
+                    voluptas beatae laborum. Autem perspiciatis deleniti 
+                    aspernatur cupiditate distinctio facere,
+                    eius tempore.taque suscipit nulla excepturi nesciunt magnam pariatur, doloribus voluptatibus, in asperiores accusantium dolorem iure tempora esse est repellendus ducimus nihil doloremque odio, amet illum consectetur. Repudiandae,
+                    neque ab! Officiis, repellendus.Sunt fugit obcaecati nisi mollitia incidunt molestiae nostrum quisquam, veniam architecto. Iure laudantium iste illo officia nemo est, nulla velit sint aliquam pariatur illum qui libero corporis eligendi maiores blanditiis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi quaerat unde a eveniet praesentium nam rerum est consequatur? Molestias, fuga a. Quia cum sapiente provident eius 
+                    vero! Similique, totam porro.Illo voluptates totam Lorem
+                    ipsum dolor sit amet consectetur adipisicing elit. Vel, dolores? In expedita eum eius fugiat maiores eligendi aspernatur officia veritatis! fugiat provident, error eum voluptas rem dicta ea beatae modi, cupiditate soluta laborum placeat consectetur temporibus praesentium repudiandae asperiores expedita alias, quam corrupti facilis. Deserunt, laboriosam modi?</p>
+            </article>
     </main>
 </body>
+
 </html>
