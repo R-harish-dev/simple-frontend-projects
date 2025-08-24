@@ -3,99 +3,135 @@ const formBox = document.querySelector(".content-enter-box");
 const formCloseBtn = document.querySelector(".closebtn");
 const taskTitle = document.getElementById('title');
 const taskBody = document.getElementById('taskbody');
-const taskShowCase = document.querySelector('.taskbox');
-const taskShowBox = document.querySelector('.task-show-box');
 const taskHolder = document.getElementById("taskholder");
 const main = document.querySelector("main");
-const month=['Jan','Feb','Mar','Apr','May','Jun','Jul',
-    'Aug','Sep','Oct','Nov','Dec'
-]
+
+const month = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 let taskStoreBox = [];
+let editIndex = null;
 
-addTaskBox.addEventListener('click', () => formBox.style.display = "flex");
-
-formBox.addEventListener('submit', function (e) {
-    e.preventDefault();
-    let tasktitle = taskTitle.value.trim();
-    let taskbody = taskBody.value.trim();
-    let todayDate = new Date();
-    let m=month[todayDate.getMonth()];
-    let d=todayDate.getDate();
-    let y=todayDate.getFullYear();
-    console.log(m,d.toString().padStart(2,'0'),y)
-    taskStoreBox.unshift({
-        date: [m,d,y],
-        title: tasktitle,
-        content: taskbody
-    });
-    renderTask(taskStoreBox);
-    showTask(taskStoreBox);
-
+// 🔄 Load tasks from localStorage on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const stored = localStorage.getItem("taskStoreBox");
+  if (stored) {
+    taskStoreBox = JSON.parse(stored);
+    renderTasks();
+  }
 });
-//add task logic
-function renderTask(...tasks) {
-    let div = document.createElement('div');
+
+// 💾 Save tasks to localStorage
+function saveToLocalStorage() {
+  localStorage.setItem("taskStoreBox", JSON.stringify(taskStoreBox));
+}
+
+// ➕ Show form
+addTaskBox.addEventListener('click', () => {
+  formBox.style.display = "flex";
+  editIndex = null;
+});
+
+// ✅ Submit form
+formBox.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const title = taskTitle.value.trim();
+  const body = taskBody.value.trim();
+  const today = new Date();
+  const date = [month[today.getMonth()], today.getDate(), today.getFullYear()];
+
+  if (!title || !body) return;
+
+  const task = { date, title, content: body };
+
+  if (editIndex !== null) {
+    taskStoreBox[editIndex] = task;
+    editIndex = null;
+  } else {
+    taskStoreBox.unshift(task);
+  }
+
+  saveToLocalStorage();
+  taskTitle.value = "";
+  taskBody.value = "";
+  formBox.style.display = "none";
+  renderTasks();
+});
+
+// ❌ Close form
+formCloseBtn.addEventListener('click', () => {
+  formBox.style.display = "none";
+  taskTitle.value = "";
+  taskBody.value = "";
+  editIndex = null;
+});
+
+// 🧱 Render all tasks
+function renderTasks() {
+  taskHolder.innerHTML = "";
+  taskStoreBox.forEach((task, index) => {
+    const div = document.createElement('div');
     div.classList.add("taskbox");
-    let taskItems = tasks.map((task, index) => {
-        return (div.innerHTML = `<div class="task-header">
-                    <span class="date">${task[index].date[0]}-${task[index].date[1]}-${task[index].date[2]}</span>
-                    <div class="modify-btns">
-                        <label class="edit" for="edit">
-                            <span style="font-size: 18px;" class="material-symbols-outlined">edit</span>
-                            </label>
-                            <label class="delete" for="delete">
-                            <span style="font-size: 18px;" class="material-symbols-outlined">delete</span>
-                            </label>
-                            </div>
-                            </div>
-                            <div class="showcase-body">
-                            <span class="task-title">${task[index].title}</span>
-                            <p>${task[index].content}</p>
-                            </div>`);
-    });
-    div.innerHTML = taskItems;
-    taskHolder.append(div);
+    div.dataset.index = index;
+    div.innerHTML = `
+      <div class="task-header">
+        <span class="date">${task.date.join('-')}</span>
+        <div class="modify-btns">
+          <button class="edit">✏️</button>
+          <button class="delete">🗑️</button>
+        </div>
+      </div>
+      <div class="showcase-body">
+        <span class="task-title">${task.title}</span>
+        <p>${task.content}</p>
+      </div>
+    `;
+    taskHolder.appendChild(div);
+  });
 }
-function showTask(...task) {
-    task.map((task, index) => {
-        return displayTask(task[index].title, task[index].content);
-    })
-}
-function displayTask(tasktitle, task) {
-    taskHolder.addEventListener('click', (e) => {
-        console.log("clicked", e.target.parentNode.classList.contains("taskbox"))
-        let showBox = e.target.parentNode.classList.contains("taskbox");
-        taskStoreBox="";
-        if (showBox) {
-            let article = document.createElement("article");
-            article.classList.add("task-show-box");
-            article.innerHTML = ` <label for="closebutton" class="taskclosebtn">
-            <span style="font-size: 18px; transform: rotate(-45deg);" id="closebutton"
-            class="material-symbols-outlined close">close</span>
-            </label>
-            <span class="tasktitle">${tasktitle}</span>
-            <p style="padding-right: 20px;" class="taskbody">${task}</p>`;
-            main.append(article);
-            article.onclick=(e)=>{
-                let closebtn=e.target.classList.contains("taskclosebtn");
-                if(closebtn){
-                    e.target.parentNode.style.display="none";
-                }
-            }
-        }
-    });
-}
-function saveTaskItem() {
 
-}
-function loadTaskItem() {
+// 🖱️ Handle clicks (edit, delete, view)
+taskHolder.addEventListener('click', (e) => {
+  const taskBox = e.target.closest('.taskbox');
+  if (!taskBox) return;
 
-}
-//close button logic
-function closeBtn(e) {
-    e.target.parentNode.parentNode.style.display = "none";
-    taskTitle.value = "";
-    taskBody.value = "";
-}
-formCloseBtn.addEventListener('click', closeBtn);
+  const index = parseInt(taskBox.dataset.index);
+  const task = taskStoreBox[index];
 
+  if (e.target.classList.contains('edit')) {
+    taskTitle.value = task.title;
+    taskBody.value = task.content;
+    formBox.style.display = "flex";
+    editIndex = index;
+  } else if (e.target.classList.contains('delete')) {
+    taskStoreBox.splice(index, 1);
+    saveToLocalStorage();
+    removeArticle();
+    renderTasks();
+  } else {
+    removeArticle();
+    showTask(task);
+  }
+});
+
+// 📄 Show task details
+function showTask(task) {
+  const article = document.createElement("article");
+  article.classList.add("task-show-box");
+  article.innerHTML = `
+    <label class="taskclosebtn">
+      <span style="font-size: 18px; transform: rotate(-45deg);" class="material-symbols-outlined close">close</span>
+    </label>
+    <span class="tasktitle">${task.title}</span>
+    <p class="taskbody">${task.content}</p>
+  `;
+  main.appendChild(article);
+
+  article.querySelector(".taskclosebtn").addEventListener("click", () => {
+    article.remove();
+  });
+}
+
+// 🧹 Remove open article
+function removeArticle() {
+  const existing = document.querySelector(".task-show-box");
+  if (existing) existing.remove();
+}
