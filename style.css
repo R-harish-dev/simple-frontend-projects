@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: hsl(0,0%,92%);
+    margin: 20px auto;
+    padding: auto 10px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    max-width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+}
+table,td,tr{
+    border:2px solid black;
+    border-collapse: collapse;
+    max-width: fit-content;
+    overflow: auto;
+}
+thead tr:nth-child(1)>td{
+    background-color:hsl(60,100%,82%,0.6);
+    padding: 10px;
+}
+tbody tr>td,thead tr:nth-child(2)>td{
+    padding: 10px;
+    
+}
+input,select{
+    width: 100%;
+    height: 200%;
+    background-color:transparent;
+    outline: none;
+    border: none;
+}
+h3{
+    margin-bottom: 20px;
+}
+table,.table-parent{
+    min-width: 100vw;
+    min-height: 80vh;
+    max-width: 100vw;
+    max-height: 90vh;
+    position: relative;
+    overflow: auto;
+
+}
