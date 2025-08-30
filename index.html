@@ -11,48 +11,38 @@
 <body>
     <h3>Typescale Generator</h3>
     <div class="table-parent">
-         <table>
-        <thead>
-            <tr>
-                <td ><input type="number" name="select" value="16" id="baseSizer" placeholder="Give size here" required></td>
-                <td>
-                    <select name="select" id="selectRatio">
-                        <option value="1.2">mt</option>
-                        <option value="1.25">mjt</option>
-                        <option value="1.333">pf</option>
-                        <option value="1.618">gr</option>
-                    </select>
-                </td>
-            </tr>
-            <tr style="font-weight: bold; font-size: 20px;background-color: hsl(0,0%,60%);">
-                <td>Size</td>
-                <td>Visualization</td>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- <tr>
-                <td>47:00 Px</td>
-                <td style="font-size: 47px;">Hello world</td>
-            </tr>
-            <tr>
-                <td>37:00 Px</td>
-                <td style="font-size: 37px;">Hello world</td>
-            </tr>
-            <tr>
-                <td>27:00 Px</td>
-                <td style="font-size: 27px;">Hello world</td>
-            </tr>
-            <tr>
-                <td>17:00 Px</td>
-                <td style="font-size: 17px;">Hello world</td>
-            </tr>
-            <tr>
-                <td>7:00 Px</td>
-                <td style="font-size: 7px;">Hello world</td>
-            </tr> -->
-        </tbody>
+        <table>
+            <thead>
+                <tr>
+                    <td style="border-right: 2px solid black;"><input type="number" name="select" value="16"
+                            id="baseSizer" placeholder="Give size here" required></td>
+                    <td style="position: sticky; top: -2px;">
+                        <select name="select" id="selectRatio">
+                            <option value="1.2">mt</option>
+                            <option value="1.25">mjt</option>
+                            <option value="1.333">pf</option>
+                            <option value="1.618">gr</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr style="font-weight: bold; font-size: 20px;background-color: hsl(0,0%,60%);">
+                    <td style="border-right: 2px solid black;">
+                        <select style="border: 2px solid black; margin-bottom: 10px; padding: 5px;" name="sizeSelector"
+                            id="sizeSelector">
+                            <option value="PX">PIXEL</option>
+                            <option value="REM">REM</option>
+                        </select> <span>Size</span>
+                    </td>
+                    <!-- <td>Size</td> -->
+                    <td>Visualization</td>
+                </tr>
+            </thead>
+            <tbody>
 
-    </table>
+
+            </tbody>
+
+        </table>
     </div>
     <script src="index.js"></script>
 </body>
